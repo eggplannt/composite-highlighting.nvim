@@ -98,7 +98,6 @@ M.init = function()
 
     local ft = filetypes[1]
     if not ft then
-      vim.notify('no ft', vim.log.levels.ERROR)
       goto continue
     end
     vim.filetype.add {
@@ -112,7 +111,6 @@ M.init = function()
             (#]] .. directive_name .. [[)
             (#set! injection.combined))
         ]]
-    vim.notify(ft .. query)
     vim.treesitter.query.set(ft, 'injections', query)
     ::continue::
   end
