@@ -1,6 +1,6 @@
 local M = {}
 
---- @alias Language {parser: string, extension: string}
+--- @alias Language {parser: string, extension: string, injection_node: string?}
 
 --- @alias Options { languages: Language[] }
 
@@ -22,22 +22,28 @@ function M.setup_options(user_opts)
     local language = M.options.languages[i]
 
     if not language.parser then
-      vim.notify("composite-highlighting: language parser does not exist.", vim.log.levels.WARN)
+      vim.notify('composite-highlighting: language parser does not exist.', vim.log.levels.WARN)
       table.remove(M.options.languages, i)
       l = l - 1
       goto continue
     end
-    if not language.extention then
-      language.extention = language.parser
+    if not language.extension then
+      language.extension = language.parser
     end
     if type(language.parser) ~= 'string' then
-      vim.notify("composite-highlighting: language parser must be a string.", vim.log.levels.WARN)
+      vim.notify('composite-highlighting: language parser must be a string.', vim.log.levels.WARN)
       table.remove(M.options.languages, i)
       l = l - 1
       goto continue
     end
-    if type(language.extention) ~= 'string' then
-      vim.notify("composite-highlighting: language extention must be a string.", vim.log.levels.WARN)
+    if type(language.extension) ~= 'string' then
+      vim.notify('composite-highlighting: language extention must be a string.', vim.log.levels.WARN)
+      table.remove(M.options.languages, i)
+      l = l - 1
+      goto continue
+    end
+    if language.injection_node and type(language.injection_node) ~= 'string' then
+      vim.notify('composite-highlighting: language injection_node must be a string.', vim.log.levels.WARN)
       table.remove(M.options.languages, i)
       l = l - 1
       goto continue

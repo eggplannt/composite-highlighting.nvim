@@ -43,6 +43,14 @@ M.init = function()
     kt = 'kotlin',
     -- Add more common extensions as needed
   }
+
+  local parser_to_node = {
+    gotmpl = 'text',
+    blade = 'text',
+    jinja = 'words',
+    liquid = 'template_content',
+  }
+
   for _, language in ipairs(config.options.languages) do
     local directive_name = string.format('inject-%s!', language.parser)
     vim.treesitter.query.add_directive(directive_name, function(_, _, bufnr, _, metadata)
@@ -52,7 +60,7 @@ M.init = function()
       end
       local fname_basename = vim.fs.basename(full_fname)
       -- Strip the ".tmpl" extension (5 characters)
-      local base_name_for_ft = fname_basename:sub(1, #fname_basename - 5)
+      local base_name_for_ft = fname_basename:sub(1, #fname_basename - #language.extension - 1)
       if base_name_for_ft == '' then
         return
       end
@@ -89,17 +97,24 @@ M.init = function()
     end
 
     local ft = filetypes[1]
+    if not ft then
+      vim.notify('no ft', vim.log.levels.ERROR)
+      goto continue
+    end
     vim.filetype.add {
       extension = {
         [language.extension] = ft,
       },
     }
-
-    vim.treesitter.query.set(ft, 'injections', [[
-          ((text) @injection.content
+    local node = language.injection_node or parser_to_node[language.parser] or 'text'
+    local query = [[
+          ((]] .. node .. [[) @injection.content
             (#]] .. directive_name .. [[)
             (#set! injection.combined))
-        ]])
+        ]]
+    vim.notify(ft .. query)
+    vim.treesitter.query.set(ft, 'injections', query)
+    ::continue::
   end
 end
 return M
