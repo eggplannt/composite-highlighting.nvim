@@ -4,15 +4,14 @@
 [![Neovim >= 0.8](https://img.shields.io/badge/Neovim-%3E%3D%200.8-blueviolet.svg?style=for-the-badge&logo=neovim)](https://neovim.io/)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-`composite-highlighting.nvim` enhances Neovim's Treesitter capabilities by enabling dynamic language injections within template files. It's particularly useful for template systems where the embedded language can vary, determining the correct syntax highlighting based on the template's filename.
+`composite-highlighting.nvim` enhances Neovim's Treesitter capabilities by enabling dynamic syntax highlighting for two different languages at the same time.
 
-For example, a file named `my_page.html.tmpl` can be highlighted as a Go Template (`gotmpl`) on the outside, while the content within specific text nodes is dynamically highlighted as HTML. Similarly, `my_script.js.tmpl` would inject JavaScript.
+For example, a file named `my_page.html.tmpl` can be highlighted as a Go Template (`gotmpl`) on the outside, while the content within the template is dynamically highlighted as HTML. Similarly, `my_script.js.tmpl` would inject JavaScript.
 
 ## ✨ Features
 
 - **Dynamic Language Injection:** Injects syntax highlighting for an inner language based on the template filename (e.g., `*.<inner_ext>.tmpl`).
 - **Configurable Template Parsers:** Define which outer template languages and file extensions should use this dynamic injection.
-- **Fallback Mechanisms:** Uses `vim.filetype.match` and a predefined extension map to robustly determine the inner language.
 - **Treesitter Powered:** Leverages Neovim's Treesitter for accurate and efficient parsing.
 
 ## 📸 Screenshot
@@ -109,7 +108,7 @@ The `languages` option is an array of tables, where each table configures a temp
   - If omitted, `extension` defaults to the value of `parser`.
   - The plugin uses this to associate files with the `parser`'s primary filetype and to set up the injection queries.
 
-## 🚀 How it Works
+## 🚀 How it Works (for the nerds)
 
 For each configured language in the `languages` option:
 
