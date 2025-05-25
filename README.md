@@ -129,7 +129,7 @@ For each configured language in the `languages` option:
 1.  The plugin registers the specified `extension` to be recognized as the filetype associated with the `parser` (e.g., `.tmpl` files become `gotmpl`).
 2.  It determines the Treesitter node to target for injection. The precedence is:
     1.  User-provided `injection_node` in the language configuration.
-    2.  Node from an internal `parser_to_tag` map (e.g., `gotmpl` -> `text`).
+    2.  Node from an internal `parser_to_node` map (e.g., `gotmpl` -> `text`).
     3.  A general fallback of `"text"`.
 3.  It then sets up a Treesitter injection query for this filetype, targeting the determined node (e.g., `(text @injection.content)` or `(template_data @injection.content)`).
 4.  When such a node is encountered in a file like `filename.<inner_ext>.<outer_ext>` (e.g., `my_page.html.tmpl`), a custom directive `inject-<parser>!` is triggered.
