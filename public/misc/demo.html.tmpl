@@ -1,0 +1,26 @@
+{{define "pluginHighlight"}}
+<section class="plugin-feature-box">
+    <img src="{{.Plugin.LogoURL}}" alt="{{.Plugin.Name}} Logo" class="plugin-logo">
+    <h2>{{.Plugin.Name}} <span class="version-badge">v{{.Plugin.Version}}</span></h2>
+
+    <p>
+        Dynamically highlight embedded languages in your <code>*.{{.Plugin.ExampleExtension}}</code> files!
+        Perfect for templates like <code>{{.Plugin.ExampleFilename}}</code>.
+    </p>
+
+    {{if .Plugin.IsAwesome}}
+        <p class="call-to-action">
+            🚀 Give it a star on <a href="{{.Plugin.RepoURL}}">GitHub</a>!
+        </p>
+    {{else}}
+        <p>Check out the <a href="{{.Plugin.DocsURL}}">documentation</a>.</p>
+    {{end}}
+
+    <div class="tech-stack">
+        Built with:
+        {{range .Plugin.Tech}}
+            <span class="tech-item">{{.}}</span>
+        {{end}}
+    </div>
+</section>
+{{end}}
