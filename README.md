@@ -143,8 +143,6 @@ For each configured language in the `languages` option:
 
 ## 💡 Notes & Troubleshooting
 
-- **Parser Installation:** The most common issue will be missing Treesitter parsers. Ensure both the outer template parser (e.g., `gotmpl`) and any inner language parsers (e.g., `html`, `javascript`, `css`, `python`) you expect to be injected are installed via `nvim-treesitter` (`:TSInstall <parser_name>`).
-- **Filename Convention:** The plugin relies on the `filename.<inner_ext>.<outer_ext>` convention for dynamic injection.
 - **Finding the Correct `injection_node`:**
   - If the default injection behavior isn't working for your specific template language (even if the parser is installed), you might need to specify the `injection_node`.
   - To find the correct node:
@@ -153,6 +151,8 @@ For each configured language in the `languages` option:
     3. Navigate your cursor in the template file to the general content area where you expect the inner language to be.
     4. Observe the highlighted node in the `:InspectTree` window. This node name (e.g., `template_data`, `content`, `text_blob`) is what you should use for the `injection_node` option.
   - If you find a good `injection_node` for a common parser not yet in our internal defaults, please consider contributing it!
+- **Parser Installation:** Ensure both the outer template parser (e.g., `gotmpl`) and any inner language parsers (e.g., `html`, `javascript`, `css`, `python`) you expect to be injected are installed via `nvim-treesitter` (`:TSInstall <parser_name>`).
+- **Filename Convention:** The plugin relies on the `filename.<inner_ext>.<outer_ext>` convention for dynamic injection.
 
 ## 🤝 Contributing
 
