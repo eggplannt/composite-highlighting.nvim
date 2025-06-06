@@ -20,7 +20,6 @@ For example, a file named `my_page.html.tmpl` can be highlighted as a Go Templat
 The following screenshot shows an `index.html.tmpl` file. The Go template syntax is highlighted by the `gotmpl` parser, while the surrounding HTML structure and content are highlighted by the `html` parser.
 
 ![Composite Highlighting Demo](public/images/demo.png)
-_(Assumes your image is at `public/images/demo.png` in your repo. Adjust path if needed.)_
 
 ## 📋 Requirements
 
